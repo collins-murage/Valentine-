@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Be My Valentine ❤️</title>
+
+	<style>
+		body {
+			margin: 0;
+			height: 100vh;
+			overflow: hidden;
+			background: linear-gradient(to right, #ff9a9e, #fad0c4);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: Arial, sans-serif;
+		}
+
+		.card {
+			background: white;
+			padding: 30px;
+			border-radius: 20px;
+			text-align: center;
+			box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+			z-index: 2;
+			max-width: 90%;
+		}
+
+		h1 {
+			color: #e63946;
+		}
+
+		button {
+			padding: 12px 25px;
+			font-size: 16px;
+			border-radius: 8px;
+			border: none;
+			cursor: pointer;
+			margin: 10px;
+		}
+
+		.yes {
+			background: #e63946;
+			color: white;
+		}
+
+		.no {
+			background: #adb5bd;
+			position: absolute;
+		}
+
+		#message {
+			display: none;
+			font-size: 22px;
+			color: #e63946;
+			margin-top: 20px;
+		}
+
+		.heart {
+			position: absolute;
+			font-size: 20px;
+			animation: float 6s linear infinite;
+		}
+
+		@keyframes float {
+			0% {
+				transform: translateY(100vh);
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateY(-10vh);
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<audio autoplay loop>
+		<source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+	</audio>
+
+	<div class="card">
+		<h1 id="question">Will you be my Valentine? ❤️</h1>
+		<p id="sub">You make my heart smile.</p>
+
+		<button class="yes" onclick="sayYes()">YES 💕</button>
+		<button class="no" onclick="sayNo()">NO 😅</button>
+
+		<div id="message">
+			I knew it 😍❤️<br>
+			You’re officially my Valentine forever 💖
+		</div>
+	</div>
+
+	<script>
+    let noCount = 0;
+
+    const questions = [
+        "Are you sure? 🥺",
+        "Like… really really sure? 😳",
+        "What if I bring chocolate? 🍫",
+        "What if I promise to make you smile every day? 😊",
+        "Okay but imagine us laughing together ❤️",
+        "You’re running out of NOs 😌",
+        "This YES button looks cute though 👀",
+        "Just say YES already 😍",
+        "Last chance… be my Valentine? 💘"
+    ];
+
+    function sayNo() {
+        noCount++;
+
+        const question = document.getElementById("question");
+        const sub = document.getElementById("sub");
+
+        if (noCount < questions.length) {
+            question.innerText = questions[noCount];
+            sub.innerText = "You can’t escape love 😈";
+        } else {
+            question.innerText = "Okay okay… YES is the only option now ❤️";
+            sub.innerText = "";
+            document.querySelector(".no").style.display = "none";
+        }
+
+        moveNo();
+    }
+
+    function moveNo() {
+        const noBtn = document.querySelector(".no");
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    }
+
+    function sayYes() {
+        document.getElementById("message").style.display = "block";
+        document.querySelector(".yes").style.display = "none";
+        document.querySelector(".no")?.remove();
+    }
+
+    // Floating hearts
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+    }, 300);
+	</script>
+
+</body>
+</html>
